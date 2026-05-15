@@ -6,7 +6,8 @@ from pathlib import Path
 from flask import Flask, jsonify, request
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
-DATABASE_PATH = Path(os.environ.get("DATA_DB", ROOT_DIR / "data.db"))
+_db_env = os.environ.get("DATA_DB")
+DATABASE_PATH = Path(_db_env) if _db_env else ROOT_DIR / "data.db"
 
 ALLOWED_MEASURES = {
     "Violent crime rate",
