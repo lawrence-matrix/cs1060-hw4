@@ -24,7 +24,6 @@ ALLOWED_MEASURES = {
     "Daily fine particulate matter",
 }
 ZIP_REGEX = re.compile(r"^\d{5}$")
-DATABASE_PATH = os.environ.get("DATA_DB", "data.db")
 app = Flask(__name__)
 
 
