@@ -2,7 +2,11 @@ import json
 import os
 import re
 import sqlite3
+from pathlib import Path
 from flask import Flask, jsonify, request
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+DATABASE_PATH = Path(os.environ.get("DATA_DB", ROOT_DIR / "data.db"))
 
 ALLOWED_MEASURES = {
     "Violent crime rate",
@@ -24,9 +28,9 @@ app = Flask(__name__)
 
 
 def get_db_connection():
-    if not os.path.exists(DATABASE_PATH):
+    if not DATABASE_PATH.exists():
         raise FileNotFoundError(f"Database file not found: {DATABASE_PATH}")
-    conn = sqlite3.connect(DATABASE_PATH)
+    conn = sqlite3.connect(str(DATABASE_PATH))
     conn.row_factory = sqlite3.Row
     return conn
 

@@ -2,6 +2,7 @@
   "name": "cs1060-hw4",
   "version": "1.0.0",
   "scripts": {
-    "vercel-build": "./build.sh"
+    "build": "./build.sh",
+    "vercel-build": "npm run build"
   }
 }
