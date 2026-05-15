@@ -41,15 +41,22 @@ def validate_zip(zip_code):
     return zip_code if ZIP_REGEX.fullmatch(zip_code) else None
 
 
-@app.route("/", methods=["POST"])
-@app.route("/<path:any_path>", methods=["POST"])
+@app.route("/", methods=["GET", "POST"])
+@app.route("/<path:any_path>", methods=["GET", "POST"])
 def county_data(any_path=None):
-    if not request.is_json:
-        return jsonify({"error": "Request body must be JSON"}), 400
+    if request.method == "GET":
+        data = {
+            "zip": request.args.get("zip"),
+            "measure_name": request.args.get("measure_name"),
+            "coffee": request.args.get("coffee"),
+        }
+    else:
+        if not request.is_json:
+            return jsonify({"error": "Request body must be JSON"}), 400
 
-    data = request.get_json()
-    if not isinstance(data, dict):
-        return jsonify({"error": "Request JSON must be an object"}), 400
+        data = request.get_json()
+        if not isinstance(data, dict):
+            return jsonify({"error": "Request JSON must be an object"}), 400
 
     if data.get("coffee") == "teapot":
         return jsonify({"error": "I'm a teapot"}), 418

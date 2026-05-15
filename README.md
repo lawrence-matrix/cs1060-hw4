@@ -40,6 +40,12 @@ python3 app.py
 }
 ```
 
+Alternatively, use GET query parameters:
+
+```
+https://cs1060-hw4-eight.vercel.app/county_data?zip=02138&measure_name=Adult%20obesity
+```
+
 The deployed endpoint is: `https://cs1060-hw4-eight.vercel.app/county_data`
 
 ## Notes
